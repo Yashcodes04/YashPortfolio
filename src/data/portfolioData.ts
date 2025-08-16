@@ -2,7 +2,7 @@ export const portfolioData = {
   personal: {
     name: "Yash Gawhale",
     title: "Final Year AIML Student at PESU",
-    profileImage: "src/data/WhatsApp Image 2025-08-13 at 21.48.23_7667cd50.jpg",
+    profileImage: "dist/assets/WhatsApp Image 2025-08-13 at 21.48.23_7667cd50.jpg",
     about: `// Final year B.Tech student in CSE (AI & ML) at PES University
 // Passionate about building intelligent software and scalable ML solutions
 // Skilled in Python, C++, Docker, PyTorch, TensorFlow, and full-stack web development
