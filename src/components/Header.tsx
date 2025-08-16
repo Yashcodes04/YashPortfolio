@@ -104,22 +104,22 @@ const Header: React.FC = () => {
           
           {/* Right Column - Profile Image */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-            className="flex justify-center lg:justify-end lg:col-span-1"
-          >
-            <div className="relative">
-              <motion.img
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.3 }}
-                src={portfolioData.personal.profileImage}
-                alt={portfolioData.personal.name}
-                className="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover shadow-2xl"
-              />
-              <div className="absolute -inset-4 bg-gradient-to-r from-green-400 to-blue-500 rounded-full opacity-20 blur-xl"></div>
-            </div>
-          </motion.div>
+  initial={{ opacity: 0, scale: 0.8 }}
+  animate={{ opacity: 1, scale: 1 }}
+  transition={{ delay: 0.6, duration: 0.8 }}
+  className="flex justify-center lg:justify-end lg:col-span-1">
+  <div className="relative">
+    <motion.img
+      whileHover={{ scale: 1.05 }}
+      transition={{ duration: 0.3 }}
+      src="/profilephoto.jpg"   // 👈 put your image name here (must be in public folder)
+      alt="Profile"
+      className="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover shadow-2xl"
+    />
+    <div className="absolute -inset-4 bg-gradient-to-r from-green-400 to-blue-500 rounded-full opacity-20 blur-xl"></div>
+  </div>
+</motion.div>
+
         </div>
       </div>
     </header>
