@@ -112,7 +112,7 @@ const Header: React.FC = () => {
     <motion.img
       whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.3 }}
-      src="public\profilephoto.jpg"   // 👈 put your image name here (must be in public folder)
+      src="profilephoto.jpg"   // 👈 put your image name here (must be in public folder)
       alt="Profile"
       className="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover shadow-2xl"
     />
