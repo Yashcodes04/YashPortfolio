@@ -16,21 +16,21 @@ const Header: React.FC = () => {
   ];
 
   return (
-    <header id="header" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 py-20 pt-32">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
+    <header id="header" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 py-8 pt-20 sm:py-12 sm:pt-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center">
           {/* Left Column - Name and Social Links */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center lg:text-left lg:col-span-1"
+            className="text-center lg:text-left lg:col-span-1 order-2 lg:order-1"
           >
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.8 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4 leading-tight"
             >
               {portfolioData.personal.name}
             </motion.h1>
@@ -38,7 +38,7 @@ const Header: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
-              className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8"
+              className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-6 sm:mb-8"
             >
               {portfolioData.personal.title}
             </motion.p>
@@ -47,7 +47,7 @@ const Header: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.8 }}
-              className="flex flex-wrap justify-center lg:justify-start gap-4"
+              className="flex flex-wrap justify-center lg:justify-start gap-3 sm:gap-4"
             >
               {socialIcons.map((social, index) => (
                 <motion.button
@@ -55,10 +55,10 @@ const Header: React.FC = () => {
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handleLinkClick(social.url)}
-                  className="p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-green-50 dark:hover:bg-green-900/20 group"
+                  className="p-2.5 sm:p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-green-50 dark:hover:bg-green-900/20 group touch-manipulation"
                   aria-label={social.label}
                 >
-                  <social.icon className="w-6 h-6 text-gray-700 dark:text-gray-300 group-hover:text-green-600 transition-colors duration-300" />
+                  <social.icon className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 dark:text-gray-300 group-hover:text-green-600 transition-colors duration-300" />
                 </motion.button>
               ))}
             </motion.div>
@@ -69,14 +69,14 @@ const Header: React.FC = () => {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="lg:col-span-1"
+            className="lg:col-span-1 order-3 lg:order-2"
           >
-            <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-4 sm:p-6 shadow-lg">
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6, duration: 0.6 }}
-                className="text-2xl font-bold text-gray-900 dark:text-white mb-4"
+                className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4"
               >
                 About
               </motion.h2>
@@ -85,7 +85,7 @@ const Header: React.FC = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.8, duration: 0.8 }}
-                className="bg-gray-900 dark:bg-gray-700 rounded-xl p-4 font-mono text-sm"
+                className="bg-gray-900 dark:bg-gray-700 rounded-xl p-3 sm:p-4 font-mono text-xs sm:text-sm overflow-x-auto"
               >
                 {portfolioData.personal.about.split('\n').map((line, index) => (
                   <motion.div
@@ -93,7 +93,7 @@ const Header: React.FC = () => {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 1 + index * 0.1, duration: 0.6 }}
-                    className={line.startsWith('//') ? 'text-green-400 mb-1' : 'text-gray-300 dark:text-gray-200 mb-1'}
+                    className={`${line.startsWith('//') ? 'text-green-400 mb-1' : 'text-gray-300 dark:text-gray-200 mb-1'} whitespace-pre-wrap break-words`}
                   >
                     {line}
                   </motion.div>
@@ -104,23 +104,40 @@ const Header: React.FC = () => {
           
           {/* Right Column - Profile Image */}
           <motion.div
-  initial={{ opacity: 0, scale: 0.8 }}
-  animate={{ opacity: 1, scale: 1 }}
-  transition={{ delay: 0.6, duration: 0.8 }}
-  className="flex justify-center lg:justify-end lg:col-span-1">
-  <div className="relative">
-    <motion.img
-      whileHover={{ scale: 1.05 }}
-      transition={{ duration: 0.3 }}
-      src="profilephoto.jpg"   // 👈 put your image name here (must be in public folder)
-      alt="Profile"
-      className="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover shadow-2xl"
-    />
-    <div className="absolute -inset-4 bg-gradient-to-r from-green-400 to-blue-500 rounded-full opacity-20 blur-xl"></div>
-  </div>
-</motion.div>
-
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.6, duration: 0.8 }}
+            className="flex justify-center lg:justify-end lg:col-span-1 order-1 lg:order-3"
+          >
+            <div className="relative">
+              <motion.img
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+                src={portfolioData.personal.profileImage}
+                alt={portfolioData.personal.name}
+                className="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full object-cover shadow-2xl"
+              />
+              <div className="absolute -inset-4 bg-gradient-to-r from-green-400 to-blue-500 rounded-full opacity-20 blur-xl"></div>
+            </div>
+          </motion.div>
         </div>
+        
+        {/* Scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.5, duration: 0.8 }}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center"
+        >
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Scroll to explore</p>
+          <motion.div
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="w-6 h-10 border-2 border-gray-300 dark:border-gray-600 rounded-full flex justify-center"
+          >
+            <div className="w-1 h-3 bg-gray-400 dark:bg-gray-500 rounded-full mt-2"></div>
+          </motion.div>
+        </motion.div>
       </div>
     </header>
   );

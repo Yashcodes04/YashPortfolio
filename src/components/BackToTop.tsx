@@ -7,7 +7,7 @@ const BackToTop: React.FC = () => {
 
   useEffect(() => {
     const toggleVisibility = () => {
-      setIsVisible(window.pageYOffset > 500);
+      setIsVisible(window.pageYOffset > 300);
     };
 
     window.addEventListener('scroll', toggleVisibility);
@@ -31,7 +31,8 @@ const BackToTop: React.FC = () => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-40 p-3 bg-green-600 text-white rounded-full shadow-lg hover:bg-green-700 transition-colors"
+          className="fixed bottom-6 right-6 z-40 p-3 bg-green-600 text-white rounded-full shadow-lg hover:bg-green-700 transition-colors touch-manipulation"
+          aria-label="Back to top"
         >
           <ChevronUp size={24} />
         </motion.button>

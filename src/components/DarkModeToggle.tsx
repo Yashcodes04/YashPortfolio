@@ -11,7 +11,7 @@ const DarkModeToggle: React.FC = () => {
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
       onClick={toggleDarkMode}
-      className="fixed top-6 right-6 z-50 p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700"
+      className="fixed top-4 right-4 sm:top-6 sm:right-6 z-50 p-2.5 sm:p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 touch-manipulation"
       aria-label="Toggle dark mode"
     >
       <motion.div
@@ -20,9 +20,9 @@ const DarkModeToggle: React.FC = () => {
         transition={{ duration: 0.3 }}
       >
         {isDarkMode ? (
-          <Sun className="w-5 h-5 text-yellow-500" />
+          <Sun className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500" />
         ) : (
-          <Moon className="w-5 h-5 text-gray-700" />
+          <Moon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
         )}
       </motion.div>
     </motion.button>
