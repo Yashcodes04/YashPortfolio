@@ -64,7 +64,7 @@ const Navigation: React.FC = () => {
               className="font-bold text-lg sm:text-xl text-gray-900 dark:text-white cursor-pointer select-none"
               onClick={() => scrollToSection('header')}
             >
-              MS
+              
             </motion.div>
 
             {/* Desktop Menu */}
