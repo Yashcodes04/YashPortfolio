@@ -14,6 +14,10 @@ const Education: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
+          whileHover={{ 
+            scale: 1.05,
+            textShadow: "0px 0px 8px rgba(34, 197, 94, 0.3)"
+          }}
           className="text-4xl font-bold text-gray-900 dark:text-white mb-12 text-center"
         >
           Education
@@ -26,18 +30,34 @@ const Education: React.FC = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: index * 0.2, duration: 0.6 }}
-              className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300"
+              whileHover={{ 
+                scale: 1.02,
+                y: -5,
+                boxShadow: "0 20px 40px rgba(0,0,0,0.1)"
+              }}
+              className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:border-green-200 dark:hover:border-green-700"
             >
               <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
                 <div className="flex items-center mb-4 md:mb-0">
-                  <img
+                  <motion.img
+                    whileHover={{ scale: 1.1, rotate: 5 }}
                     src={edu.logo}
                     alt={edu.institution}
                     className="w-16 h-16 rounded-lg object-cover mr-4 shadow-md"
                   />
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">{edu.degree}</h3>
-                    <p className="text-green-600 font-medium">{edu.institution}</p>
+                    <motion.h3 
+                      whileHover={{ x: 5 }}
+                      className="text-xl font-bold text-gray-900 dark:text-white mb-1"
+                    >
+                      {edu.degree}
+                    </motion.h3>
+                    <motion.p 
+                      whileHover={{ x: 5 }}
+                      className="text-green-600 font-medium"
+                    >
+                      {edu.institution}
+                    </motion.p>
                   </div>
                 </div>
                 
@@ -50,12 +70,6 @@ const Education: React.FC = () => {
                     <div className="flex items-center text-green-600 dark:text-green-400">
                       <Award className="w-4 h-4 mr-2" />
                       <span className="text-sm font-medium">GPA: {edu.gpa}</span>
-                    </div>
-                  )}
-                  {edu.Percentage && (
-                    <div className="flex items-center text-green-600 dark:text-green-400">
-                      <Award className="w-4 h-4 mr-2" />
-                      <span className="text-sm font-medium">Percentage: {edu.Percentage}</span>
                     </div>
                   )}
                 </div>
@@ -79,8 +93,14 @@ const Education: React.FC = () => {
                           delay: index * 0.2 + courseIndex * 0.05, 
                           duration: 0.4 
                         }}
-                        whileHover={{ scale: 1.05, y: -2 }}
-                        className="px-3 py-1 bg-white dark:bg-gray-700 hover:bg-green-100 dark:hover:bg-green-900/20 hover:text-green-700 dark:hover:text-green-400 text-gray-700 dark:text-gray-300 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer shadow-sm hover:shadow-md"
+                        whileHover={{ 
+                          scale: 1.1, 
+                          y: -4,
+                          rotate: [0, -2, 2, 0],
+                          boxShadow: "0 8px 16px rgba(34, 197, 94, 0.2)"
+                        }}
+                        whileTap={{ scale: 0.95 }}
+                        className="px-3 py-1 bg-white dark:bg-gray-700 hover:bg-green-100 dark:hover:bg-green-900/20 hover:text-green-700 dark:hover:text-green-400 text-gray-700 dark:text-gray-300 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer shadow-sm hover:shadow-md border border-transparent hover:border-green-200 dark:hover:border-green-700"
                       >
                         {course}
                       </motion.span>

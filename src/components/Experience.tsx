@@ -13,6 +13,10 @@ const Experience: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
+          whileHover={{ 
+            scale: 1.05,
+            textShadow: "0px 0px 8px rgba(34, 197, 94, 0.3)"
+          }}
           className="text-4xl font-bold text-gray-900 dark:text-white mb-12 text-center"
         >
           Experience
@@ -29,32 +33,56 @@ const Experience: React.FC = () => {
                 initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
                 animate={inView ? { opacity: 1, x: 0 } : {}}
                 transition={{ delay: index * 0.2, duration: 0.6 }}
+                whileHover={{ scale: 1.02 }}
                 className={`flex items-center ${
                   index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
                 } flex-col md:flex-row`}
               >
                 <div className="flex-1 md:w-5/12">
-                  <div className={`bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 shadow-lg ${
+                  <motion.div 
+                    whileHover={{ 
+                      y: -5,
+                      boxShadow: "0 20px 40px rgba(0,0,0,0.1)"
+                    }}
+                    className={`bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:border-green-200 dark:hover:border-green-700 ${
                     index % 2 === 0 ? 'md:mr-8' : 'md:ml-8'
                   } mb-4 md:mb-0`}>
                     <div className="flex items-center mb-4">
-                      <img
+                      <motion.img
+                        whileHover={{ scale: 1.1, rotate: 5 }}
                         src={exp.logo}
                         alt={exp.company}
                         className="w-12 h-12 rounded-lg object-cover mr-4"
                       />
                       <div>
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-white">{exp.role}</h3>
-                        <p className="text-green-600 font-medium">{exp.company}</p>
+                        <motion.h3 
+                          whileHover={{ x: 5 }}
+                          className="text-xl font-bold text-gray-900 dark:text-white"
+                        >
+                          {exp.role}
+                        </motion.h3>
+                        <motion.p 
+                          whileHover={{ x: 5 }}
+                          className="text-green-600 font-medium"
+                        >
+                          {exp.company}
+                        </motion.p>
                       </div>
                     </div>
                     <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">{exp.period}</p>
                     <p className="text-gray-700 dark:text-gray-300">{exp.description}</p>
-                  </div>
+                  </motion.div>
                 </div>
                 
                 {/* Timeline dot */}
-                <div className="w-4 h-4 bg-green-500 rounded-full border-4 border-white dark:border-gray-900 shadow-lg z-10 mx-4"></div>
+                <motion.div 
+                  whileHover={{ scale: 1.3 }}
+                  animate={{ 
+                    boxShadow: ["0 0 0 0 rgba(34, 197, 94, 0.4)", "0 0 0 10px rgba(34, 197, 94, 0)", "0 0 0 0 rgba(34, 197, 94, 0)"]
+                  }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  className="w-4 h-4 bg-green-500 rounded-full border-4 border-white dark:border-gray-900 shadow-lg z-10 mx-4"
+                />
                 
                 <div className="flex-1 md:w-5/12"></div>
               </motion.div>

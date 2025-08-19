@@ -9,11 +9,40 @@ export const portfolioData = {
 // Experienced in developing microservices and applying computer vision to real-world challenges
 // Published research in misinformation detection and currently working on multiple AI/ML research papers
 // Interested in software engineering, deep learning, data science, and cloud-based systems`,
+    aboutCode: `#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+class AIEngineer {
+private:
+    string name = "Yash Gawhale";
+    vector<string> skills = {"Python", "Machine Learning", "Deep Learning", "Cloud", "Full Stack Dev"};
+    string passion = "Building innovative AI solutions";
+    
+public:
+    void introduce() {
+        cout << "Hello! I'm " << name << endl;
+        cout << "Currently pursuing Computer Science degree" << endl;
+        cout << "Specializing in AI and Machine Learning" << endl;
+        cout << "Always exploring cutting-edge research!" << endl;
+    }
+    
+    vector<string> getSkills() {
+        return skills;
+    }
+};
+
+int main() {
+    AIEngineer yash;
+    yash.introduce();
+    return 0;
+}`,
     socialLinks: {
       linkedin: "https://www.linkedin.com/in/yash-gawhale-4277b8258/",
       github: "https://github.com/Yashcodes04",
       email: "mailto:yashgawhale004@gmail.com",
-      portfolio: "",
+      portfolio: "https://yashcodes04.github.io/YashPortfolio/",
       resume: "Yash Gawhale.pdf"
     }
   },
@@ -105,15 +134,24 @@ achievements: [
 projects: [
   {
     id: 1,
-    title: "Production-Ready Security Microservices Platform",
-    description: "Designed and deployed a containerized security microservices architecture (access control, vulnerability scanning, bug monitoring, and data encryption) with NGINX API gateway, achieving 100% success in health, integration, and load tests (avg. response time 97ms, 100% success rate under 5 concurrent users).",
-    technologies: ["Docker", "Node.js", "Python", "Flask", "MongoDB", "NGINX"],
-    status: "Completed",
-    githubUrl: "https://github.com/Yashcodes04/CC_Microservices.git",
+    title: "Capstone Project:- Early Detection of Cancer Using Multi-Omics Data Fusion via Graph Neural Networks ",
+    description: "An AI-driven framework that integrates multi-omics data to map gene networks, detect early cancer signals, and enable personalized risk prediction.",
+    technologies: ["Multi-Omics data","GNNs","LLMs"],
+    status: "active",
+    githubUrl: "",
     demoUrl: ""
   },
   {
     id: 2,
+    title: "Production-Ready Security Microservices Platform",
+    description: "Designed and deployed a containerized security microservices architecture (access control, vulnerability scanning, bug monitoring, and data encryption) with NGINX API gateway, achieving 100% success in health, integration, and load tests (avg. response time 97ms, 100% success rate under 5 concurrent users).",
+    technologies: ["Docker", "Node.js", "Python", "Flask", "MongoDB", "NGINX"],
+    status: "active",
+    githubUrl: "https://github.com/Yashcodes04/CC_Microservices.git",
+    demoUrl: ""
+  },
+  {
+    id: 3,
     title: "Crime Management System",
     description: "Developed full-stack web application managing 1,000+ crime cases with role-based access control. Optimized database queries reducing case retrieval time by 50% using indexing and query optimization.",
     technologies: ["PHP", "MySQL", "JavaScript", "Database Design"],
@@ -122,7 +160,7 @@ projects: [
     demoUrl: ""
   },
   {
-    id: 3,
+    id: 4,
     title: "CodeMentor – AI-Powered Learning Assistant Chrome Extension",
     description: "Developed an intelligent Chrome extension integrating AI-driven progressive hints to guide coders on platforms like LeetCode, featuring real-time code analysis, anti-cheating, and personalized learning analytics to enhance self-driven problem-solving.",
     technologies: ["PostgreSQL", "OpenAI GPT-4", "React", "TypeScript", "Chrome Extension APIs", "FastAPI", "Docker", "LangChain"],
@@ -131,7 +169,7 @@ projects: [
     demoUrl: ""
   },
   {
-    id: 4,
+    id: 5,
     title: "AI-Based Drug Recommendation System for Personalized Oncology",
     description: "Developed a medical platform combining CNN-based MRI tumor classification with detailed molecular analysis of DNA mutations, delivering personalized diagnosis and drug treatment recommendations to enhance precision oncology workflows.",
     technologies: ["Python", "TensorFlow/Keras (CNN)", "REST APIs", "JavaScript", "FastAPI", "LLMs"],
@@ -140,7 +178,7 @@ projects: [
     demoUrl: ""
   },
   {
-    id: 5,
+    id: 6,
     title: "Adaptive Memory Consolidation for Catastrophic Forgetting Mitigation in TGNN with Heterogeneous Time-Scales",
     description: "Implemented a memory consolidation framework in TGNNs to mitigate catastrophic forgetting across heterogeneous time-scales using tempo-specific strategies for slow, medium, and fast-evolving nodes.",
     technologies: ["PyTorch Geometric", "Pandas", "Seaborn", "Scikit-learn"],
@@ -149,14 +187,24 @@ projects: [
     demoUrl: ""
   },
   {
-    id: 6,
+    id: 7,
     title: "Semantic Segmentation for Building Damage Assessment in War-Torn Areas",
     description: "Engineered a UNet-based model for automated building damage assessment from satellite imagery, enabling rapid pixel-level evaluation for efficient disaster response. Implemented custom mask generation and data augmentation techniques to overcome class imbalance and annotation challenges.",
     technologies: ["UNet", "OpenCV", "Python", "xBD Dataset"],
     status: "Completed",
     githubUrl: "https://github.com/Yashcodes04/Building-Damage-Assessment-in-War-Torn-Areas..git",
     demoUrl: ""
-  }
+  },
+  {
+    id: 8,
+    title: "The Railway Management System",
+    description: "The Railway Management System is a comprehensive software solution designed to efficiently handle the operations and management of a railway network. Leveraging key concepts from Data Structures and Algorithms (DSA), particularly queues, the system ensures smooth functioning and optimal performance.",
+    technologies: ["C","Data Structures and Algorithms"],
+    status: "Completed",
+    githubUrl: "https://github.com/Yashcodes04/Railway-Management-System.git",
+    demoUrl: ""
+  },
+  
 ],
 
   publications: [
@@ -172,7 +220,7 @@ projects: [
       id: 2,
       title: " Mitigating Catastrophic Forgetting in Temporal Graph Neural Networks.",
       venue: "  Knowledge and Information Systems (KAIS) Journal.",
-      status: "Under Review",
+      status: "coming_soon",
       description: "Adaptive Memory Consolidation framework for Temporal Graph Neural Networks that mitigates catastrophic forgetting by detecting heterogeneous time scales and applying category-specific memory strategies, achieving 93.8% accuracy with minimal forgetting.",
       technologies: ["LLMs", "Continual Learning", "Graph Neural Networks", "Heterogeneous Time Scales", "Catastrophic Forgetting" ,"NLP", "Research Analytics"]
     }
