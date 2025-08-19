@@ -222,7 +222,7 @@ projects: [
       venue: "  Knowledge and Information Systems (KAIS) Journal.",
       status: "coming_soon",
       description: "Adaptive Memory Consolidation framework for Temporal Graph Neural Networks that mitigates catastrophic forgetting by detecting heterogeneous time scales and applying category-specific memory strategies, achieving 93.8% accuracy with minimal forgetting.",
-      technologies: ["LLMs", "Continual Learning", "Graph Neural Networks", "Heterogeneous Time Scales", "Catastrophic Forgetting" ,"NLP", "Research Analytics"]
+      technologies: ["LLMs", "Continual Learning", "Graph Neural Network", "Heterogeneous Time Scales", "Catastrophic Forgetting" ,"NLP", "Research Analytics"]
     }
   ],
   
