@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, Linkedin, Mail, Code2, ChevronDown, Play, X, ArrowDown } from 'lucide-react';
+import { Github, Linkedin, Mail, Code2, ChevronDown, Play, X, ArrowDown, FileText } from 'lucide-react';
+
 
 const Header: React.FC = () => {
   const [showAbout, setShowAbout] = useState(false);
@@ -209,7 +210,8 @@ const Header: React.FC = () => {
               { icon: Github, href: "https://github.com/Yashcodes04", label: "GitHub" },
               { icon: Linkedin, href: "https://www.linkedin.com/in/yash-gawhale-4277b8258/", label: "LinkedIn" },
               { icon: Mail, href: "mailto:yashgawhale004@gmail.com", label: "Email" },
-              { icon: Code2, href: "https://leetcode.com/u/Yash432/", label: "LeetCode" }
+              { icon: Code2, href: "https://leetcode.com/u/Yash432/", label: "LeetCode" },
+              { icon: FileText, href: "Yash Gawhale.pdf", label: "Resume" }
             ].map(({ icon: Icon, href, label }) => (
               <motion.a
                 key={label}
