@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Home, GraduationCap, Code, Briefcase, FolderOpen, Award, FileText, GitBranch } from 'lucide-react';
+import { Menu, X, Home, GraduationCap, Code, Briefcase, FolderOpen, Award, FileText, GitBranch, Mail } from 'lucide-react';
 
 const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,11 +9,12 @@ const Navigation: React.FC = () => {
   const navItems = [
     { id: 'header', label: 'Home', icon: Home },
     { id: 'education', label: 'Education', icon: GraduationCap },
-    { id: 'skills', label: 'Skills', icon: Code },
+    { id: 'techstack', label: 'Tech Stack', icon: Code },
     { id: 'experience', label: 'Experience', icon: Briefcase },
     { id: 'projects', label: 'Projects', icon: FolderOpen },
     { id: 'achievements', label: 'Achievements', icon: Award },
     { id: 'publications', label: 'Publications', icon: FileText },
+    { id: 'contact', label: 'Contact', icon: Mail },
   ];
 
   useEffect(() => {
@@ -64,7 +65,6 @@ const Navigation: React.FC = () => {
               className="font-bold text-lg sm:text-xl text-gray-900 dark:text-white cursor-pointer select-none"
               onClick={() => scrollToSection('header')}
             >
-              
             </motion.div>
 
             {/* Desktop Menu */}

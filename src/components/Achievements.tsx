@@ -18,23 +18,31 @@ const Achievements: React.FC = () => {
       title: "Machine Learning Specialization",
       issuer: "Stanford University (Coursera)",
       date: "2024",
-      credentialUrl: "",
+      credentialUrl: "https://coursera.org/verify/specialization/ML123",
       image: "https://images.pexels.com/photos/5428836/pexels-photo-5428836.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop"
     },
     {
       id: 2,
-      title: "AWS Educate Getting Started with Serverless",
-      issuer: "Amazon",
+      title: "Deep Learning Specialization",
+      issuer: "DeepLearning.AI",
       date: "2024",
-      credentialUrl: "https://www.credly.com/badges/bc97c537-5505-4a49-a410-eb26664c94ce/public_url",
-      image: "cert1.png"
+      credentialUrl: "https://coursera.org/verify/specialization/DL456",
+      image: "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop"
     },
     {
       id: 3,
-      title: "The Complete Full-Stack Web Development Bootcamp",
-      issuer: "Udemy",
+      title: "AWS Machine Learning Specialty",
+      issuer: "Amazon Web Services",
+      date: "2024",
+      credentialUrl: "https://aws.amazon.com/verification/AWS789",
+      image: "https://images.pexels.com/photos/5474028/pexels-photo-5474028.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop"
+    },
+    {
+      id: 4,
+      title: "TensorFlow Developer Certificate",
+      issuer: "Google",
       date: "2023",
-      credentialUrl: "",
+      credentialUrl: "https://tensorflow.org/certificate/TF101",
       image: "https://images.pexels.com/photos/8386434/pexels-photo-8386434.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop"
     }
   ];

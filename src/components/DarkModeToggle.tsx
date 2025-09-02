@@ -20,9 +20,9 @@ const DarkModeToggle: React.FC = () => {
         transition={{ duration: 0.3 }}
       >
         {isDarkMode ? (
-          <Sun className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500" />
+          <Sun className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400" />
         ) : (
-          <Moon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
+          <Moon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
         )}
       </motion.div>
     </motion.button>

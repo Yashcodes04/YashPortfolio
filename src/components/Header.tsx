@@ -1,364 +1,435 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Linkedin, Github, Mail, Globe, Download, Code, Play, Terminal } from 'lucide-react';
-import { portfolioData } from '../data/portfolioData';
-import { useLinkTransition } from '../hooks/useLinkTransition';
+import { Github, Linkedin, Mail, Code2, ChevronDown, Play, X, ArrowDown } from 'lucide-react';
 
 const Header: React.FC = () => {
-  const { handleLinkClick } = useLinkTransition();
-  const [typedText, setTypedText] = useState('');
-  const [currentLine, setCurrentLine] = useState(0);
-  const [isTyping, setIsTyping] = useState(true);
-  const [showOutput, setShowOutput] = useState(false);
-  const [outputText, setOutputText] = useState('');
-  const [isExecuting, setIsExecuting] = useState(false);
-  const [showCode, setShowCode] = useState(true);
-  
-  const codeLines = portfolioData.personal.aboutCode.split('\n');
-  
-  const socialIcons = [
-    { icon: Linkedin, url: portfolioData.personal.socialLinks.linkedin, label: 'LinkedIn' },
-    { icon: Github, url: portfolioData.personal.socialLinks.github, label: 'GitHub' },
-    { icon: Code, url: "https://leetcode.com/u/Yash432/", label: 'LeetCode' },
-    { icon: Mail, url: portfolioData.personal.socialLinks.email, label: 'Email' },
-    { icon: Globe, url: portfolioData.personal.socialLinks.portfolio, label: 'Portfolio' },
-    { icon: Download, url: portfolioData.personal.socialLinks.resume, label: 'Resume' },
+  const [showAbout, setShowAbout] = useState(false);
+  const [isRunning, setIsRunning] = useState(false);
+  const [showConsole, setShowConsole] = useState(false);
+  const [consoleOutput, setConsoleOutput] = useState<string[]>([]);
+  const [currentOutputIndex, setCurrentOutputIndex] = useState(0);
+
+  // Console output messages
+  const outputMessages = [
+    "Compiling main.cpp...",
+    "Build successful!",
+    "Running program...",
+    "",
+    "Hello! I'm Yash Gawhale",
+    "Currently pursuing Computer Science degree",
+    "Specializing in AI and Machine Learning",
+    "Love contributing to open-source projects",
+    "Always exploring cutting-edge research!",
+    "",
+    "Skills: AI, Machine Learning, React, C++, Python and many more ",
+    "Passion: Building innovative solutions",
+    "",
+    "Program executed successfully"
   ];
 
-  const executeCode = () => {
-    setIsExecuting(true);
-    setShowCode(false);
-    setShowOutput(true);
-    setOutputText('');
+  // Console output animation
+  React.useEffect(() => {
+    if (showConsole && currentOutputIndex < outputMessages.length) {
+      const timer = setTimeout(() => {
+        setConsoleOutput(prev => [...prev, outputMessages[currentOutputIndex]]);
+        setCurrentOutputIndex(prev => prev + 1);
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [showConsole, currentOutputIndex, outputMessages]);
+
+  const handleRun = async () => {
+    setIsRunning(true);
     
-    const outputLines = [
-      'Compiling main.cpp...',
-      'Build successful!',
-      'Running program...',
-      '',
-      'Hello! I\'m Yash Gawhale',
-      'Currently pursuing Computer Science degree',
-      'Specializing in AI and Machine Learning',
-      'Always exploring cutting-edge research!',
-      '',
-      'Skills: Python, Machine Learning, Deep Learning, Data Science, Cloud',
-      'Passion: Building innovative AI solutions',
-      '',
-      'Program executed successfully.',
-      'Press any key to continue...'
-    ];
+    // Simulate compilation time
+    await new Promise(resolve => setTimeout(resolve, 2000));
     
-    let currentOutput = '';
-    let lineIndex = 0;
-    
-    const typeOutput = () => {
-      if (lineIndex < outputLines.length) {
-        currentOutput += outputLines[lineIndex] + '\n';
-        setOutputText(currentOutput);
-        lineIndex++;
-        setTimeout(typeOutput, lineIndex <= 3 ? 800 : 400);
-      } else {
-        setIsExecuting(false);
-      }
-    };
-    
-    setTimeout(typeOutput, 500);
+    setIsRunning(false);
+    setShowConsole(true);
+    setConsoleOutput([]);
+    setCurrentOutputIndex(0);
   };
 
-  useEffect(() => {
-    if (!isTyping || currentLine >= codeLines.length) return;
+  const handleCloseConsole = () => {
+    setShowConsole(false);
+    setConsoleOutput([]);
+    setCurrentOutputIndex(0);
+  };
 
-    const currentLineText = codeLines[currentLine];
-    const currentTypedLength = typedText.split('\n')[currentLine]?.length || 0;
-
-    if (currentTypedLength < currentLineText.length) {
-      const timer = setTimeout(() => {
-        const lines = typedText.split('\n');
-        if (lines[currentLine]) {
-          lines[currentLine] += currentLineText[currentTypedLength];
-        } else {
-          lines[currentLine] = currentLineText[0];
-        }
-        setTypedText(lines.join('\n'));
-      }, 50);
-      return () => clearTimeout(timer);
-    } else if (currentLine < codeLines.length - 1) {
-      const timer = setTimeout(() => {
-        setTypedText(prev => prev + '\n');
-        setCurrentLine(prev => prev + 1);
-      }, 200);
-      return () => clearTimeout(timer);
-    } else {
-      setIsTyping(false);
+  const scrollToNext = () => {
+    const nextSection = document.getElementById('education');
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [typedText, currentLine, isTyping, codeLines]);
-
-  const highlightCode = (code: string) => {
-    return code
-      .replace(/(#include|using|namespace|class|private|public|string|vector|int|void|return|cout|endl)/g, '<span class="text-blue-400">$1</span>')
-      .replace(/(".*?")/g, '<span class="text-green-400">$1</span>')
-      .replace(/(\/\/.*)/g, '<span class="text-gray-500">$1</span>')
-      .replace(/(\{|\}|\(|\)|;)/g, '<span class="text-yellow-400">$1</span>');
   };
 
   return (
-    <header id="header" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 py-8 pt-20 sm:py-12 sm:pt-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center">
-          
-          {/* Left Column - Name and Social Links */}
+    <section id="header" className="min-h-screen bg-white dark:bg-gray-900 relative overflow-hidden">
+      {/* Floating particles background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(15)].map((_, i) => (
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            whileHover={{ scale: 1.02 }}
-            className="text-center lg:text-left lg:col-span-1 order-2 lg:order-1"
+            key={i}
+            className="absolute w-1 h-1 bg-green-400/20 rounded-full"
+            initial={{
+              x: Math.random() * window.innerWidth,
+              y: Math.random() * window.innerHeight,
+            }}
+            animate={{
+              x: Math.random() * window.innerWidth,
+              y: Math.random() * window.innerHeight,
+            }}
+            transition={{
+              duration: Math.random() * 20 + 10,
+              repeat: Infinity,
+              repeatType: "reverse",
+              ease: "linear"
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Main Hero Content */}
+      <div className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="text-center max-w-4xl mx-auto"
+        >
+          {/* Profile Photo */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5, rotateY: -180 }}
+            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+            className="mb-8 relative"
           >
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-              whileHover={{ 
-                scale: 1.05,
-                textShadow: "0px 0px 8px rgba(34, 197, 94, 0.3)"
-              }}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4 leading-tight"
-            >
-              {portfolioData.personal.name}
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-              whileHover={{ scale: 1.02 }}
-              className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-6 sm:mb-8"
-            >
-              {portfolioData.personal.title}
-            </motion.p>
-            
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-              className="flex flex-wrap justify-center lg:justify-start gap-3 sm:gap-4"
+              whileHover={{ 
+                scale: 1.1,
+                rotateY: 15,
+                rotateX: 5,
+              }}
+              className="relative mx-auto w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48"
             >
-              {socialIcons.map((social, index) => (
-                <motion.button
-                  key={social.label}
-                  whileHover={{ 
-                    scale: 1.15, 
-                    y: -4,
-                    rotate: [0, -5, 5, 0],
-                    boxShadow: "0 10px 25px rgba(0,0,0,0.1)"
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.8 + index * 0.1, duration: 0.5 }}
-                  onClick={() => handleLinkClick(social.url)}
-                  className="p-2.5 sm:p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-green-50 dark:hover:bg-green-900/20 group touch-manipulation border-2 border-transparent hover:border-green-200 dark:hover:border-green-700"
-                  aria-label={social.label}
-                >
-                  <social.icon className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 dark:text-gray-300 group-hover:text-green-600 transition-all duration-300 group-hover:scale-110" />
-                </motion.button>
-              ))}
-            </motion.div>
-          </motion.div>
-          
-          {/* Middle Column - About */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            whileHover={{ scale: 1.02 }}
-            className="lg:col-span-1 order-3 lg:order-2"
-          >
-            <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-200 dark:border-gray-700 hover:border-green-200 dark:hover:border-green-700">
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.6 }}
-                className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 flex items-center justify-between"
-              >
-                <div className="flex items-center">
-                  <Code className="w-6 h-6 mr-2 text-green-600" />
-                  About
-                  <motion.div
-                    animate={{ opacity: [1, 0, 1] }}
-                    transition={{ duration: 1, repeat: Infinity }}
-                    className="ml-2 w-2 h-5 bg-green-500 inline-block"
-                  />
-                </div>
-                <motion.button
-                  whileHover={{ scale: 1.05, backgroundColor: "rgba(34, 197, 94, 0.1)" }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={executeCode}
-                  disabled={isExecuting}
-                  className="flex items-center space-x-1 px-3 py-1.5 bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white rounded-lg text-sm font-medium transition-all duration-300 touch-manipulation"
-                >
-                  {isExecuting ? (
-                    <>
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                        className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
-                      />
-                      <span>Running...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Play className="w-4 h-4" />
-                      <span>Run</span>
-                    </>
-                  )}
-                </motion.button>
-              </motion.h2>
-              
-              {showCode && (
-                <motion.div
-                  initial={{ opacity: 1 }}
-                  animate={{ opacity: showCode ? 1 : 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="bg-gray-900 dark:bg-gray-700 rounded-xl p-3 sm:p-4 font-mono text-xs sm:text-sm overflow-x-auto max-h-80 overflow-y-auto"
-                >
-                  <div 
-                    className="text-gray-300 dark:text-gray-200 whitespace-pre-wrap break-words leading-relaxed"
-                    dangerouslySetInnerHTML={{ __html: highlightCode(typedText) }}
-                  />
-                  {isTyping && (
-                    <motion.span
-                      animate={{ opacity: [1, 0, 1] }}
-                      transition={{ duration: 0.8, repeat: Infinity }}
-                      className="inline-block w-2 h-4 bg-green-400 ml-1"
-                    />
-                  )}
-                </motion.div>
-              )}
-              
-              {!showCode && !showOutput && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="bg-gray-900 dark:bg-gray-700 rounded-xl p-3 sm:p-4 flex items-center justify-center min-h-[200px]"
-                >
-                  <div className="text-center">
-                    <motion.div
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                      className="w-8 h-8 border-2 border-green-400 border-t-transparent rounded-full mx-auto mb-4"
-                    />
-                    <p className="text-green-400 font-mono text-sm">Preparing execution environment...</p>
-                  </div>
-                </motion.div>
-              )}
-              
-              {/* Output Console */}
-              <AnimatePresence>
-                {showOutput && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0, y: -20 }}
-                    animate={{ opacity: 1, height: "auto", y: 0 }}
-                    exit={{ opacity: 0, height: 0, y: -20 }}
-                    transition={{ duration: 0.5, ease: "easeInOut" }}
-                    className="overflow-hidden"
-                  >
-                    <div className="bg-black dark:bg-gray-900 rounded-xl p-3 sm:p-4 font-mono text-xs sm:text-sm border-2 border-green-500/30">
-                      <div className="flex items-center mb-2 pb-2 border-b border-green-500/20">
-                        <Terminal className="w-4 h-4 text-green-400 mr-2" />
-                        <span className="text-green-400 font-semibold">Output Console</span>
-                        <motion.button
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                          onClick={() => {
-                            setShowOutput(false);
-                            setShowCode(true);
-                          }}
-                          className="ml-auto text-gray-400 hover:text-white transition-colors"
-                        >
-                          ×
-                        </motion.button>
-                      </div>
-                      <div className="text-green-300 dark:text-green-200 whitespace-pre-wrap leading-relaxed min-h-[100px]">
-                        {outputText}
-                        {isExecuting && (
-                          <motion.span
-                            animate={{ opacity: [1, 0, 1] }}
-                            transition={{ duration: 0.8, repeat: Infinity }}
-                            className="inline-block w-2 h-4 bg-green-400 ml-1"
-                          />
-                        )}
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </motion.div>
-          
-          {/* Right Column - Profile Image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-            className="flex justify-center lg:justify-end lg:col-span-1 order-1 lg:order-3"
-          >
-            <div className="relative">
-              <motion.img
-                whileHover={{ 
-                  scale: 1.08,
-                  rotate: [0, -2, 2, 0],
-                  filter: "brightness(1.1)"
-                }}
-                transition={{ duration: 0.3 }}
-                src={portfolioData.personal.profileImage}
-                alt={portfolioData.personal.name}
-                className="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full object-cover shadow-2xl border-4 border-white dark:border-gray-700 hover:border-green-200 dark:hover:border-green-600 transition-all duration-300"
-              />
-              <motion.div 
-                animate={{ 
-                  scale: [1, 1.1, 1],
-                  opacity: [0.2, 0.4, 0.2]
-                }}
-                transition={{ duration: 3, repeat: Infinity }}
-                className="absolute -inset-4 bg-gradient-to-r from-green-400 to-blue-500 rounded-full blur-xl"
-              />
+              {/* Animated border rings */}
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="absolute -inset-2 border-2 border-dashed border-green-400/30 rounded-full"
+                className="absolute inset-0 rounded-full border-2 border-green-400/30 border-dashed"
               />
-            </div>
+              <motion.div
+                animate={{ rotate: -360 }}
+                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                className="absolute inset-2 rounded-full border border-blue-400/20 border-dotted"
+              />
+              
+              {/* Profile image */}
+              <motion.img
+                src="profilephoto.jpg"
+                alt="Yash Gawhale"
+                className="w-full h-full rounded-full object-cover shadow-2xl border-4 border-white dark:border-gray-800"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+              />
+              
+              {/* Floating tech icons around profile */}
+              {[
+                { icon: '🤖', delay: 0, radius: 80, angle: 0 },
+                { icon: '⚛️', delay: 0.5, radius: 90, angle: 120 },
+                { icon: '🐍', delay: 1, radius: 85, angle: 240 },
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  className="absolute text-2xl"
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ 
+                    opacity: 1, 
+                    scale: 1,
+                    x: Math.cos((item.angle * Math.PI) / 180) * item.radius,
+                    y: Math.sin((item.angle * Math.PI) / 180) * item.radius,
+                  }}
+                  transition={{ 
+                    delay: item.delay + 1,
+                    duration: 0.8,
+                    repeat: Infinity,
+                    repeatType: "reverse",
+                    repeatDelay: 2
+                  }}
+                  whileHover={{ scale: 1.5, rotate: 360 }}
+                >
+                  {item.icon}
+                </motion.div>
+              ))}
+            </motion.div>
           </motion.div>
-        </div>
-        
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.5, duration: 0.8 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center"
-        >
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Scroll to explore</p>
-          <motion.div
-            animate={{ 
-              y: [0, 10, 0],
-              scale: [1, 1.1, 1]
-            }}
-            transition={{ duration: 2, repeat: Infinity }}
-            whileHover={{ scale: 1.2 }}
-            className="w-6 h-10 border-2 border-gray-300 dark:border-gray-600 rounded-full flex justify-center"
+
+          {/* Name */}
+          <motion.h1
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: "easeOut", delay: 0.5 }}
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 tracking-tight"
           >
-            <motion.div 
-              animate={{ y: [0, 6, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-1 h-3 bg-gray-400 dark:bg-gray-500 rounded-full mt-2"
-            />
+            Yash Gawhale
+          </motion.h1>
+
+          {/* Tagline */}
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
+            className="text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-light mb-8 sm:mb-12 tracking-wide"
+          >
+            AIML Engineer & Computer Science Student
+          </motion.p>
+
+          {/* About Button */}
+          <motion.button
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1.1, ease: "easeOut" }}
+            onClick={() => setShowAbout(true)}
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-flex items-center gap-3 px-8 py-4 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-full font-medium text-lg hover:bg-gray-800 dark:hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl"
+          >
+            <Code2 className="w-5 h-5" />
+            About Me
+          </motion.button>
+
+          {/* Social Links */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1.4, ease: "easeOut" }}
+            className="flex justify-center gap-6 mt-12"
+          >
+            {[
+              { icon: Github, href: "https://github.com/Yashcodes04", label: "GitHub" },
+              { icon: Linkedin, href: "https://www.linkedin.com/in/yash-gawhale-4277b8258/", label: "LinkedIn" },
+              { icon: Mail, href: "mailto:yashgawhale004@gmail.com", label: "Email" },
+              { icon: Code2, href: "https://leetcode.com/u/Yash432/", label: "LeetCode" }
+            ].map(({ icon: Icon, href, label }) => (
+              <motion.a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.1, y: -3 }}
+                whileTap={{ scale: 0.95 }}
+                className="p-3 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-300"
+                aria-label={label}
+              >
+                <Icon className="w-6 h-6" />
+              </motion.a>
+            ))}
           </motion.div>
         </motion.div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1.7 }}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center"
+        >
+          <motion.p
+            className="text-sm text-gray-500 dark:text-gray-400 mb-4 tracking-wide"
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            Scroll to explore
+          </motion.p>
+          <motion.button
+            onClick={scrollToNext}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-300"
+            aria-label="Scroll to next section"
+          >
+            <ArrowDown className="w-6 h-6" />
+          </motion.button>
+        </motion.div>
       </div>
-    </header>
+
+      {/* About Modal */}
+      <AnimatePresence>
+        {showAbout && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black bg-opacity-50 dark:bg-opacity-70 flex items-center justify-center p-4 z-50 backdrop-blur-sm"
+            onClick={() => {
+              setShowAbout(false);
+              handleCloseConsole();
+            }}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0, y: 50 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.8, opacity: 0, y: 50 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="bg-white dark:bg-gray-900 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div className="bg-gray-50 dark:bg-gray-800 px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <Code2 className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">About</h3>
+                </div>
+                <div className="flex items-center gap-3">
+                  {!showConsole && (
+                    <motion.button
+                      onClick={handleRun}
+                      disabled={isRunning}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="flex items-center gap-2 bg-green-600 hover:bg-green-700 disabled:bg-gray-600 px-4 py-2 rounded-lg font-medium text-white transition-all duration-300 text-sm"
+                    >
+                      {isRunning ? (
+                        <>
+                          <motion.div
+                            className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                          />
+                          Running...
+                        </>
+                      ) : (
+                        <>
+                          <Play className="w-4 h-4" />
+                          Run
+                        </>
+                      )}
+                    </motion.button>
+                  )}
+                  <button
+                    onClick={() => {
+                      setShowAbout(false);
+                      handleCloseConsole();
+                    }}
+                    className="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Modal Content */}
+              <div className="p-6 overflow-y-auto max-h-[calc(90vh-80px)]">
+                {!showConsole ? (
+                  /* Code Display */
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-gray-900 rounded-lg border border-gray-700 overflow-hidden"
+                  >
+                    {/* Code Header */}
+                    <div className="bg-gray-800 px-4 py-3 border-b border-gray-700 flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="flex gap-2">
+                          <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                          <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                          <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                        </div>
+                        <span className="text-gray-400 ml-4 text-sm">main.cpp</span>
+                      </div>
+                      <div className="text-gray-400 text-sm">C++</div>
+                    </div>
+
+                    {/* Code Content */}
+                    <div className="p-6 font-mono text-sm leading-relaxed bg-gray-900 text-gray-300">
+                      <pre className="whitespace-pre-wrap">{`#include <iostream>
+#include <string>
+#include <vector>
+
+class Developer {
+private:
+    std::string name;
+    std::string degree;
+    std::vector<std::string> skills;
+    std::string passion;
+
+public:
+    Developer() {
+        name = "Yash Gawhale";
+        degree = "Computer Science";
+        skills = {"AI", "Machine Learning", "React", "C++", "Python"};
+        passion = "Building innovative solutions";
+    }
+    
+    void introduce() {
+        std::cout << "Hello! I'm " << name << std::endl;
+        std::cout << "Currently pursuing " << degree << " degree" << std::endl;
+        std::cout << "Specializing in AI and Machine Learning" << std::endl;
+        std::cout << "Love contributing to open-source projects" << std::endl;
+        std::cout << "Always exploring cutting-edge research!" << std::endl;
+    }
+};
+
+int main() {
+    Developer me;
+    me.introduce();
+    return 0;
+}`}</pre>
+                    </div>
+                  </motion.div>
+                ) : (
+                  /* Console Output */
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-black rounded-lg border border-green-500 overflow-hidden"
+                  >
+                    {/* Console Header */}
+                    <div className="bg-gray-900 px-4 py-3 border-b border-green-500 flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                        <span className="text-green-400 text-sm font-mono">Terminal</span>
+                      </div>
+                      <button
+                        onClick={handleCloseConsole}
+                        className="text-gray-400 hover:text-white transition-colors"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+
+                    {/* Console Content */}
+                    <div className="p-6 font-mono text-sm leading-relaxed min-h-[300px]">
+                      {consoleOutput.map((line, index) => (
+                        <motion.div
+                          key={index}
+                          className="text-green-400"
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                        >
+                          {line && <span className="text-green-600">$ </span>}
+                          {line}
+                        </motion.div>
+                      ))}
+                      {currentOutputIndex < outputMessages.length && (
+                        <motion.span
+                          className="inline-block w-2 h-4 bg-green-400 ml-1"
+                          animate={{ opacity: [1, 0] }}
+                          transition={{ duration: 0.8, repeat: Infinity }}
+                        />
+                      )}
+                    </div>
+                  </motion.div>
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </section>
   );
 };
 
