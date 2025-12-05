@@ -223,6 +223,22 @@ projects: [
       status: "coming_soon",
       description: "Adaptive Memory Consolidation framework for Temporal Graph Neural Networks that mitigates catastrophic forgetting by detecting heterogeneous time scales and applying category-specific memory strategies, achieving 93.8% accuracy with minimal forgetting.",
       technologies: ["LLMs", "Continual Learning", "Graph Neural Network", "Heterogeneous Time Scales", "Catastrophic Forgetting" ,"NLP", "Research Analytics"]
+    },
+    {
+      id: 3,
+      title: " Preprocessed TCGA Breast Invasive Carcinoma Multi-Omics Dataset with Survival Annotations",
+      venue: " Harvard Dataverse",
+      status: "published",
+      description: "Preprocessed multi-omics dataset from TCGA Breast Invasive Carcinoma (BRCA), comprising RNA-seq gene expression, DNA methylation, and copy number variation data for 710 patients across 16,163 genes. The dataset underwent comprehensive preprocessing and quality control, including ComBat batch correction (55% reduction in technical variance), quantile normalization and log-transformation for expression data, β-value to M-value transformation for methylation data, and KNN-based imputation for missing values. All three omics layers are gene-aligned and biologically validated through expected cross-omics correlations. The dataset is fully analysis-ready and suitable for downstream machine learning tasks such as survival prediction, molecular subtyping, and integrative multi-omics studies.",
+      technologies: ["Multi-Omics Integration","TCGA-BRCA","Batch Effect Correction","ComBat","RNA-seq Normalization","DNA Methylation","CNV (Copy Number Variation)","Bioinformatics Pipeline","Cross-Platform Harmonization","Cancer Genomics"]
+    },
+    {
+      id: 4,
+      title: " A Comprehensive Preprocessing Pipeline for TCGA-BRCA Multi-Omics Data Integration.",
+      venue: " 16th International Conference on Bioscience, Biochemistry and Bioinformatics (ICBBB 2026)",
+      status: "submitted",
+      description: "A robust, batch-corrected TCGA-BRCA multi-omics pipeline that unifies RNA-seq, methylation, CNV, and clinical data into an analysis-ready dataset of 710 patients with strong biological validation for advanced ML tasks.",
+      technologies: ["Multi-Omics Integration","TCGA-BRCA","Batch Effect Correction","ComBat","RNA-seq Normalization","DNA Methylation","CNV (Copy Number Variation)","Bioinformatics Pipeline","Cross-Platform Harmonization","Cancer Genomics"]
     }
   ],
   

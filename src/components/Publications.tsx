@@ -17,6 +17,7 @@ const Publications: React.FC = () => {
   const getStatusText = (status: string) => {
     switch (status) {
       case 'coming_soon': return 'Coming Soon';
+      case 'submitted': return 'Submitted';
       default: return 'Published';
     }
   };
