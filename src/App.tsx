@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
-//import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 
 import Navigation from './components/Navigation';
 import DarkModeToggle from './components/DarkModeToggle';
@@ -71,7 +71,7 @@ function App() {
     <Router basename="/YashPortfolio">
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/#/projects" element={<ProjectsPage />} />
+        <Route path="/projects" element={<ProjectsPage />} />
       </Routes>
     </Router>
   );
