@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import Navigation from './components/Navigation';
 import DarkModeToggle from './components/DarkModeToggle';
 import AnimationToggle from './components/AnimationToggle';
