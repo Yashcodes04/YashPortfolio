@@ -1,8 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
-
 import Navigation from './components/Navigation';
 import DarkModeToggle from './components/DarkModeToggle';
 import AnimationToggle from './components/AnimationToggle';
@@ -68,7 +66,7 @@ function MainPage() {
 
 function App() {
   return (
-    <Router basename="/YashPortfolio">
+    <Router>
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/projects" element={<ProjectsPage />} />
@@ -76,6 +74,5 @@ function App() {
     </Router>
   );
 }
-
 
 export default App;
