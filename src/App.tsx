@@ -66,7 +66,7 @@ function MainPage() {
 
 function App() {
   return (
-    <Router basename="/YashPortfolio">
+    <Router basename="./">
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/projects" element={<ProjectsPage />} />
