@@ -66,7 +66,7 @@ function MainPage() {
 
 function App() {
   return (
-    <Router>
+    <Router basename="/YashPortfolio">
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/projects" element={<ProjectsPage />} />
@@ -74,5 +74,6 @@ function App() {
     </Router>
   );
 }
+
 
 export default App;
